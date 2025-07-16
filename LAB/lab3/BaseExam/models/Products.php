@@ -1,7 +1,7 @@
 <?php
 class Products extends BaseModel{
     function getAll(){
-        $sql="SELECT products.* ,products.name as productName
+        $sql="SELECT products.* ,category.name as categoryName
         FROM products
         LEFT JOIN category
         ON products.category_id = category.id";
@@ -11,18 +11,18 @@ class Products extends BaseModel{
         return $products;
     }
     function category($category){
-        $sql="SELECT products.* ,products.name as productName
+        $sql="SELECT products.* ,category.name as categoryName
         FROM products
         LEFT JOIN category
         ON products.category_id = category.id
-        WHERE products.category=:categoty";
+        WHERE products.category_id=:category";
         $stmt=$this->pdo->prepare($sql);
         $stmt->execute([':category'=>$category]);
         $products=$stmt->fetchAll();
-        return $products; 
+        return $products;
     }
     function get($id){
-        $sql="SELECT products.* ,products.name as productName
+        $sql="SELECT products.* ,category.name as categoryName
         FROM products
         LEFT JOIN category
         ON products.category_id = category.id

@@ -1,6 +1,6 @@
 <?php
 
-define('BASE_URL',          '');
+define('BASE_URL',          'http://localhost/DU_AN_MAU/LAB/lab3/BaseExam/');
 
 define('PATH_ROOT',         __DIR__ . '/../');
 
@@ -20,7 +20,7 @@ define('DB_HOST',     'localhost');
 define('DB_PORT',     '3306');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
-define('DB_NAME',     '');
+define('DB_NAME',     'lab');
 define('DB_OPTIONS', [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,

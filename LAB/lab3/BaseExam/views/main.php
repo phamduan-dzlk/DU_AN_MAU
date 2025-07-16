@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title><?= $title ?? 'Home' ?></title>
-
+    <link rel="stylesheet" href="../assets/layout.css">
     <!-- Latest compiled and minified CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -25,7 +25,6 @@
     </nav>
 
     <div class="container">
-        <h1 class="mt-3 mb-3"><?= $title ?? 'Home' ?></h1>
 
         <div class="row">
             <?php
