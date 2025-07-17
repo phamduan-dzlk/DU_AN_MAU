@@ -31,34 +31,7 @@ class HomeController
         $view='client/detail';
         require_once PATH_VIEW . 'main.php';      
     }
-    public function login() 
-    {
-        if($_SERVER['REQUEST_METHOD']){
-            $this->user->add($_POST);
-            header('LOCATION:'.BASE_URL);
-        }
-    }
-    public function check() 
-    {
-        if($_SERVER['REQUEST_METHOD']){
-            $data=$this->user->check($_POST['username'],$_POST['password']);
-            if(!isset($data)){
-                $message= "bạn đã đăng nhập thất bại";
-                $title="trang chủ";
-                $view='client/home';
-                require_once PATH_VIEW . 'main.php';
-            }else{
-                $_SESSION['user'] = $data;
-                $_SESSION['regester'] = true;
 
-
-                $message= "bạn đã đăng nhập thành công";
-                $title="trang chủ";
-                $view='client/home';
-                require_once PATH_VIEW . 'main.php';             
-            }
-
-        }
-    }
+    
 
 }

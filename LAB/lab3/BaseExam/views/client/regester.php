@@ -1,11 +1,12 @@
-<form action="<?=BASE_URL.'?action=regester'?>" method="post">
+<form action="<?=BASE_URL.'?action=check'?>" method="post">
     <p>
         <label for="">username</label>
         <input type="text" name="username" id="">
     </p>
     <p>
         <label for="">password</label>
-        <input type="text" name="username" id="">
+        <input type="text" name="password" id="">
     </p>
     <button type="submit">luu</button>
+    dawng nhaps
 </form>

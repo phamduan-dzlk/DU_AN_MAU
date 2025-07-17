@@ -1,6 +1,9 @@
+        <a href="<?=BASE_URL.'?action=regester'?>" class="btn btn-outline-primary">đăng nhập</a>
+        <a href="<?=BASE_URL.'?action=login'?>" class="btn btn-outline-primary">đăng ký</a>
 <h1 class="mb-4">Danh mục</h1>
 <div class="mb-4">
     <div class="btn-group" role="group">
+        <a href="<?=BASE_URL.'?action=category'?>" class="btn btn-outline-primary">tất cả</a>
         <a href="<?=BASE_URL.'?action=category&category=1'?>" class="btn btn-outline-primary">Áo</a>
         <a href="<?=BASE_URL.'?action=category&category=2'?>" class="btn btn-outline-primary">Quần</a>
         <a href="<?=BASE_URL.'?action=category&category=3'?>" class="btn btn-outline-primary">Giày</a>
