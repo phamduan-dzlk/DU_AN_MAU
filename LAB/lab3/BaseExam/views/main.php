@@ -11,8 +11,6 @@
         echo "";
     }
     ?>
-
-    <link rel="stylesheet" href="../assets/layout.css">
     <!-- Latest compiled and minified CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -30,8 +28,6 @@
     </nav>
 
     <div class="container">
-        
-
         <div class="row">
             <?php
             if (isset($view)) {
