@@ -21,7 +21,7 @@
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <a href="<?=BASE_URL.'?action=detail&id='.$v['id']?>">
-                    <img src="<?=$v['thumbnail']?>" class="card-img-top" alt="Hình sản phẩm">
+                    <img src="<?=BASE_ASSETS_UPLOADS .$v['thumbnail']?>" class="card-img-top text-center" alt="Hình sản phẩm">
                 </a>
                 <div class="card-body text-center">
                     <h5 class="card-title"><?=$v['name']?></h5>

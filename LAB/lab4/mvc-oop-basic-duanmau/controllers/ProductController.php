@@ -8,11 +8,30 @@ class ProductController
     {
         $this->modelProduct = new ProductModel();
     }
-
     public function Home()
     {
-        $title = "Đây là trang chủ nhé hahaa";
+        $category=$this->modelProduct->category();
+        if(isset($_GET['category'])){
+            $data_in=$this->modelProduct->Qcate($_GET['category']);
+            $title = "Trang chu";
+            $thoiTiet = "Hôm nay trời có vẻ là mưa";
+            require_once PATH_VIEW.'trangchu.php';
+        }
+
+        $data=$this->modelProduct->getAll();
+
+        // echo "<pre>";
+        // print_r($category);
+        // print_r($data);
+        $title = "Trang chu";
         $thoiTiet = "Hôm nay trời có vẻ là mưa";
-        require_once './views/trangchu.php';
+        require_once PATH_VIEW.'trangchu.php';
+    }
+    public function category()
+    {
+        $data=$this->modelProduct->getAll();
+        $title = "Trang chu";
+        $thoiTiet = "Hôm nay trời có vẻ là mưa";
+        require_once PATH_VIEW.'trangchu.php';
     }
 }
