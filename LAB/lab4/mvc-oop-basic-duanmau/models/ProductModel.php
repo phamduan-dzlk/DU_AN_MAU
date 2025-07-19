@@ -73,7 +73,7 @@ class ProductModel
     }
     public function update($data)
     {
-        $sql="UPDATE `products` SET `name`=:name,`thumbnail`=:thumbnail,`price`=:price,`description`=:description,`category_id`=:category_id WHERE 1";
+        $sql="UPDATE `products` SET `name`=:name,`thumbnail`=:thumbnail,`price`=:price,`description`=:description,`category_id`=:category_id WHERE id=:id";
         $stmt=$this->conn->prepare($sql);
         $stmt->execute($data);
         return $stmt->rowCount();

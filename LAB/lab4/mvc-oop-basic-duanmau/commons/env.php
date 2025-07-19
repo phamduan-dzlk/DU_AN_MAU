@@ -7,7 +7,7 @@ define('BASE_URL'       , 'http://localhost/DU_AN_MAU/LAB/lab4/mvc-oop-basic-dua
 
 define('PATH_ROOT'    , __DIR__ . '/../');
 
-define('BASE_ASSET_UPLOAD',PATH_ROOT.'asset/upload/');
+define('BASE_ASSET_UPLOAD',BASE_URL.'asset/upload/');
 
 define('PATH_VIEW',PATH_ROOT.'views/');
 

@@ -24,7 +24,8 @@ function connectDB() {
 
 function uploadFile($file, $folderSave){
     $file_upload = $file;
-    $pathStorage = $folderSave . rand(10000, 99999) . $file_upload['name'];
+    $pathStorage = rtrim($folderSave, '/') . '/' . rand(10000, 99999) . '_' . $file_upload['name'];
+
 
     $tmp_file = $file_upload['tmp_name'];
     $pathSave = BASE_ASSET_UPLOAD . $pathStorage; // Đường dãn tuyệt đối của file

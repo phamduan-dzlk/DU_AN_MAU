@@ -55,7 +55,9 @@
         <tr>
           <td><?=$v['id']?></td>
           <td><?=$v['name']?></td>
-          <td><img src="<?=BASE_ASSET_UPLOAD.$v['thumbnail']?>" alt=""></td>
+          <td><img src="<?=BASE_ASSET_UPLOAD.$v['thumbnail']?>" alt="">
+          <main><?=BASE_ASSET_UPLOAD.$v['thumbnail']?></main>
+          </td>
           <td><?=$v['price']?></td>
           <td><?=$v['description']?></td>
           <td><?=$v['categoryName']?></td>

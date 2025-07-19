@@ -58,6 +58,7 @@ class ProductController
             $_SESSION['msg'] = $th->getMessage();
         }
         header('LOCATION:'.BASE_URL);
+        exit;
     }
     function detail(){
         $data=$this->modelProduct->get($_GET['id']);
@@ -70,6 +71,8 @@ class ProductController
     function add(){
         if($_SERVER['REQUEST_METHOD']){
             $data=$_POST + $_FILES;
+            echo"<pre>";
+            print_r($data);
             if($data['thumbnail']['size']>0){
                 $data['thumbnail']=uploadFile($data['thumbnail'],"img_ao");
             }else{
@@ -78,24 +81,30 @@ class ProductController
             $this->modelProduct->add($data);
         }
         header('LOCATION:'.BASE_URL);
+        exit;
     }
     function edit(){
-        require_once PATH_VIEW.'edit.php';
+        if(isset($_GET['id'])){
+            $data_in=$this->modelProduct->get($_GET['id']);
+            $data=$this->category->getAll();
+            require_once PATH_VIEW.'edit.php';
+        }
+        
     }
     function update(){
         if($_SERVER['REQUEST_METHOD']){
             $data=$_POST + $_FILES;
             $product=$this->modelProduct->get($_POST['id']);
             if($data['thumbnail']['size']>0){
-                $data['thumbnail']=uploadFile($data['thumbnail'],"img_ao");
+                $data['thumbnail']=uploadFile($data['thumbnail'],'img_ao');
             }else{
                 $data['thumbnail']=$product['thumbnail'];
-            }
-            $row=$this->modelProduct->update($data);
+            }            $row=$this->modelProduct->update($data);
             if($row>0 && file_exists($product['thumbnail'])){
                 deleteFile($product['thumbnail']);
             }
         }
         header('LOCATION:'.BASE_URL);
+        exit;
     }
 }
