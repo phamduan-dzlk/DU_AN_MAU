@@ -1,4 +1,5 @@
 <?php 
+session_start();
 // Require toàn bộ các file khai báo môi trường, thực thi,...(không require view)
 require_once "./commons/env.php";
 require_once "./commons/function.php";
@@ -24,8 +25,14 @@ $act = $_GET['action'] ?? '/';
 match ($act) {
     // Trang chủ
     '/'=>(new ProductController())->Home(),
+
+    'category'=>(new ProductController())->Home(),
+    'delete'=>(new ProductController())->delete(),
+    'detail'=>(new ProductController())->detail(),
+    'edit'=>(new ProductController())->edit(),
+    'update'=>(new ProductController())->update(),
+    'create'=>(new ProductController())->create(),
+    'add'=>(new ProductController())->add(),
     'login'=>(new ProductController())->login(),
     'register'=>(new ProductController())->register(),
-    'category'=>(new ProductController())->Home()
-
 };

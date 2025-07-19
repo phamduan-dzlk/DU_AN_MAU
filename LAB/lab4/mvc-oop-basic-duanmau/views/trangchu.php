@@ -13,13 +13,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-  <h1><?php echo $title; ?></h1>
-  <h2><?php echo $thoiTiet; ?></h2>
+  <?php
+
+  if(isset($_SESSION["msg"])){
+      $color=$_SESSION["status"] ? "green" : "red";
+      echo"<p style='color:$color'>{$_SESSION['msg']}</p>";
+      unset($_SESSION["msg"]);
+      unset($_SESSION["status"]);
+  }?>
+  
   <div class="container">
+    <a href="<?=BASE_URL.'?action=fix'?>" class="btn btn-outline-primary">chỉnh sửa</a>
     <div class="btn-group" role="group">
       <a href="<?= BASE_URL.'?action=login'?> "class="btn btn-outline-primary">đăng ký</a>
       <a href="<?= BASE_URL.'?action=register'?>" class="btn btn-outline-primary">đăng nhập</a>
     </div>
+    <a href="<?=BASE_URL.'?action=create'?>">them san pham</a>
     <!-- danh muc -->
     <?php
     $category_url=$_GET['category'] ?? '0'; 
@@ -51,15 +60,14 @@
           <td><?=$v['description']?></td>
           <td><?=$v['categoryName']?></td>
           <td>
-            <a href="<?= BASE_URL.'?action=delete&id='.$V['id']?>" onclick="return(confirm('ban co muon xoa khong')">xoa</a>
-            <a href="<?= BASE_URL.'?action=detail&id='.$V['id']?>">xem chi tiet</a>
-            <a href="<?= BASE_URL.'?action=edit&id='.$V['id']?>">sua</a>
+            <a href="<?= BASE_URL.'?action=delete&id='.$v['id']?>" onclick="return(confirm('ban co muon xoa khong'))">xoa</a>
+            <a href="<?= BASE_URL.'?action=detail&id='.$v['id']?>">xem chi tiet</a>
+            <a href="<?= BASE_URL.'?action=edit&id='.$v['id']?>">sua</a>
           </td>
         </tr>        
       <?php }?>
 
     </table>
   </div>
-  
 </body>
 </html>

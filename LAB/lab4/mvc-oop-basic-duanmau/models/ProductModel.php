@@ -52,9 +52,9 @@ class ProductModel
         FROM products
         LEFT JOIN category
         ON products.category_id = category.id
-        WHERE product.id=:id";
+        WHERE products.id=:id";
         $stmt=$this->conn->prepare($sql);
-        $stmt->execute($id);
+        $stmt->execute([':id'=>$id]);
         $products=$stmt->fetch();
         return $products;
     }
@@ -62,7 +62,7 @@ class ProductModel
     {
         $sql="DELETE FROM products where id=:id";
         $stmt=$this->conn->prepare($sql);
-        $stmt->execute($id);
+        $stmt->execute([':id'=>$id]);
         return $stmt->rowCount();
     }
     public function add($data)
