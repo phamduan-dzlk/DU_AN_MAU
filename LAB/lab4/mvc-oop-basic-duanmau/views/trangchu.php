@@ -16,13 +16,22 @@
   <?php
 
   if(isset($_SESSION["msg"])){
-      $color=$_SESSION["status"] ? "green" : "red";
-      echo"<p style='color:$color'>{$_SESSION['msg']}</p>";
-      unset($_SESSION["msg"]);
-      unset($_SESSION["status"]);
-  }?>
+    $color=$_SESSION["status"] ? "green" : "red";
+    echo"<p style='color:$color'>{$_SESSION['msg']}</p>";
+    unset($_SESSION["msg"]);
+    unset($_SESSION["status"]);
+  }
+  ?>
   
   <div class="container">
+      <!-- Nếu đã đăng nhập -->
+    <?php if (isset($_SESSION['username'])): ?>
+      <div class="mb-3">
+        <p class="text-success">Chào mừng đã đến với trang web, <strong><?= $_SESSION['username'] ?>_san</strong>!</p>
+        <a href="<?= BASE_URL . '?action=logout' ?>" class="btn btn-outline-danger">Đăng xuất</a>
+      </div>
+    <?php endif; ?>
+
     <a href="<?=BASE_URL.'?action=fix'?>" class="btn btn-outline-primary">chỉnh sửa</a>
     <div class="btn-group" role="group">
       <a href="<?= BASE_URL.'?action=login'?> "class="btn btn-outline-primary">đăng ký</a>
@@ -42,21 +51,20 @@
       </div>
     </div>
     <table class="table">
-          <tr>
-          <th>dinh danh</th>
-          <th>ten san pham</th>
-          <th>anh</th>
-          <th>gia</th>
-          <th>thong tin</th>
-          <th>hanh dong</th>
-        </tr>
+      <tr>
+        <th>dinh danh</th>
+        <th>ten san pham</th>
+        <th>anh</th>
+        <th>gia</th>
+        <th>thong tin</th>
+        <th>hanh dong</th>
+      </tr>
       <?php foreach($data ?? $data_in as $v){?>
 
         <tr>
           <td><?=$v['id']?></td>
           <td><?=$v['name']?></td>
-          <td><img src="<?=BASE_ASSET_UPLOAD.$v['thumbnail']?>" alt="">
-          <main><?=BASE_ASSET_UPLOAD.$v['thumbnail']?></main>
+          <td><img src="<?=BASE_ASSET_UPLOAD.$v['thumbnail']?>" alt="" width="100px">
           </td>
           <td><?=$v['price']?></td>
           <td><?=$v['description']?></td>

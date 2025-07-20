@@ -5,9 +5,13 @@
 
 define('BASE_URL'       , 'http://localhost/DU_AN_MAU/LAB/lab4/mvc-oop-basic-duanmau/');
 
+define('BASE_URL_FIX'       , 'http://localhost/DU_AN_MAU/LAB/lab4/mvc-oop-basic-duanmau/?action=fix');
+
 define('PATH_ROOT'    , __DIR__ . '/../');
 
-define('BASE_ASSET_UPLOAD',BASE_URL.'asset/upload/');
+define('BASE_ASSET_UPLOAD',BASE_URL.'assets/uploads/');
+
+define('PATH_ASSET_UPLOAD',PATH_ROOT.'assets/uploads/');
 
 define('PATH_VIEW',PATH_ROOT.'views/');
 

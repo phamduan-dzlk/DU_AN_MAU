@@ -48,7 +48,7 @@ class ProductModel
 
     public function get($id)
     {
-        $sql="SELECT products.* ,category.name as cattegoryName
+        $sql="SELECT products.* ,category.name as categoryName
         FROM products
         LEFT JOIN category
         ON products.category_id = category.id

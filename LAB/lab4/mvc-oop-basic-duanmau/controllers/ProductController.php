@@ -2,6 +2,7 @@
 // có class chứa các function thực thi xử lý logic 
 class ProductController
 {
+    public $user;
     public $modelProduct;
     public $category;
 
@@ -9,26 +10,23 @@ class ProductController
     {
         $this->modelProduct = new ProductModel();
         $this->category = new Category();
+        $this->user = new User();
     }
     public function Home()
     {
-        $category=$this->modelProduct->category();
+        $category = $this->modelProduct->category();
+        $title = "Trang chủ";
+        $thoiTiet = "Hôm nay trời có vẻ là mưa";
+
         if(isset($_GET['category'])){
-            $data_in=$this->modelProduct->Qcate($_GET['category']);
-            $title = "Trang chu";
-            $thoiTiet = "Hôm nay trời có vẻ là mưa";
-            require_once PATH_VIEW.'trangchu.php';
+            $data_in = $this->modelProduct->Qcate($_GET['category']);
+        } else {
+            $data = $this->modelProduct->getAll();
         }
 
-        $data=$this->modelProduct->getAll();
-
-        // echo "<pre>";
-        // print_r($category);
-        // print_r($data);
-        $title = "Trang chu";
-        $thoiTiet = "Hôm nay trời có vẻ là mưa";
         require_once PATH_VIEW.'trangchu.php';
     }
+
     public function category()
     {
         $data=$this->modelProduct->getAll();
@@ -61,8 +59,11 @@ class ProductController
         exit;
     }
     function detail(){
-        $data=$this->modelProduct->get($_GET['id']);
-        require_once PATH_VIEW.'detail.php';
+        if(isset($_GET['id'])){
+            $data=$this->modelProduct->get($_GET['id']);
+            require_once PATH_VIEW.'detail.php';            
+        }
+
     }
     function create(){
         $data=$this->category->getAll();
@@ -96,7 +97,7 @@ class ProductController
             $data=$_POST + $_FILES;
             $product=$this->modelProduct->get($_POST['id']);
             if($data['thumbnail']['size']>0){
-                $data['thumbnail']=uploadFile($data['thumbnail'],'img_ao');
+                $data['thumbnail']= uploadFile($data['thumbnail'],'img_ao');
             }else{
                 $data['thumbnail']=$product['thumbnail'];
             }            $row=$this->modelProduct->update($data);
@@ -107,4 +108,111 @@ class ProductController
         header('LOCATION:'.BASE_URL);
         exit;
     }
+    function fix(){
+        $data=$this->category->getAll();
+        require_once PATH_VIEW.'fix.php';        
+    }
+    public function delete_category(){
+        try {
+            if(!isset($_GET['id'])){
+                throw new Exception("khong co id");
+            }
+            $row=$this->category->delete($_GET['id']);
+            if($row>0){
+                $_SESSION['status']=true;
+                $_SESSION['msg']=("da xoa thanh cong");
+            }else{
+                throw new Exception("xoa khong thanh cong");
+            }
+        } catch (\Throwable $th) {
+            $_SESSION['status']=false;
+            $_SESSION['msg']=("");
+        }
+        header('location:'.BASE_URL_FIX);
+    }
+
+    public function edit_categoty(){
+        if(isset($_GET['id'])){
+            $data=$this->category->get($_GET['id']);
+            require_once PATH_VIEW.'fix_edit.php';  
+        }
+         
+    }
+    public function update_categoty(){
+        if($_SERVER['REQUEST_METHOD']){
+            $row=$this->category->update($_POST);
+            if($row>0){
+                $mesage="da sua thanh cong";
+            }
+            header('location:'.BASE_URL_FIX);
+            exit;
+        }
+    }
+
+    public function create_category(){
+        require_once PATH_VIEW.'fix_create.php';        
+    }
+    public function add_category(){
+        if($_SERVER['REQUEST_METHOD']){
+            $row=$this->category->add($_POST);
+            if($row>0){
+                $mesage="da theem thanh cong";
+            }
+            header('location:'.BASE_URL_FIX);
+            exit;
+        }
+    }
+    public function login(){
+        require_once PATH_VIEW.'login.php';
+    }
+    public function add_user(){
+        if($_SERVER['REQUEST_METHOD']){
+            $category=$this->modelProduct->category();
+            if(isset($_GET['category'])){
+                $data_in=$this->modelProduct->Qcate($_GET['category']);
+                $title = "Trang chu";
+                $thoiTiet = "Hôm nay trời có vẻ là mưa";
+                require_once PATH_VIEW.'trangchu.php';
+            }
+
+            $data=$this->modelProduct->getAll();
+            $this->user->add($_POST);
+
+            $_SESSION['login']=true;
+            $_SESSION['user']=$_POST['username'];
+            $_SESSION['status']=true;
+            $_SESSION['msg']=("bạn đã đăng ký thành công!");   
+
+            header("Location: " . BASE_URL);
+            exit;
+        }
+    }
+    
+    public function register(){
+        require_once PATH_VIEW.'register.php'; 
+    }
+    public function check_user(){
+        if($_SERVER['REQUEST_METHOD']){
+            $data=$this->user->check($_POST['username'],$_POST['password']);
+            if(!isset($data)){
+                $_SESSION['status']=false;
+                $_SESSION['msg']=("bạn đã đăng nhập thất bại!");
+                header("Location: " . BASE_URL);
+                exit;
+            }else{
+                $_SESSION['login']=true;
+                $_SESSION['user']=$data['username'];
+                $_SESSION['status']=true;
+                $_SESSION['msg']=("bạn đã đăng nhập thành công!");
+                header("Location: " . BASE_URL);
+                exit;               
+            }
+        }
+    }
+    public function logout() {
+    session_destroy();
+    header("Location: " . BASE_URL);
+    exit;
+    }
+
 }

@@ -16,7 +16,7 @@ class ClientController {
     }
     public function add() 
     {
-            if($_SERVER['REQUEST_METHOD']){
+        if($_SERVER['REQUEST_METHOD']){
             $this->user->add($_POST);
             $message= "bạn đã đăng nhập thành công";
             header('Location:'.BASE_URL);
