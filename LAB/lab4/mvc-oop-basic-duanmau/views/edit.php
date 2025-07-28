@@ -1,3 +1,4 @@
+<h1>chỉnh sửa sản phẩm</h1>
 <form action="<?= BASE_URL.'?action=update'?>" method="post" enctype="multipart/form-data">
     <p>
         <label for="">name</label>

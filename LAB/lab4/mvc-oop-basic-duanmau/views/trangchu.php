@@ -14,7 +14,6 @@
 </head>
 <body>
   <?php
-
   if(isset($_SESSION["msg"])){
     $color=$_SESSION["status"] ? "green" : "red";
     echo"<p style='color:$color'>{$_SESSION['msg']}</p>";
@@ -25,14 +24,15 @@
   
   <div class="container">
       <!-- Nếu đã đăng nhập -->
-    <?php if (isset($_SESSION['username'])): ?>
+    <?php if (isset($_SESSION['username'])){ ?>
       <div class="mb-3">
         <p class="text-success">Chào mừng đã đến với trang web, <strong><?= $_SESSION['username'] ?>_san</strong>!</p>
         <a href="<?= BASE_URL . '?action=logout' ?>" class="btn btn-outline-danger">Đăng xuất</a>
+        <a href="<?=BASE_URL.'?action=fix'?>" class="btn btn-outline-primary">chỉnh sửa</a>        
       </div>
-    <?php endif; ?>
+    <?php } ?>
 
-    <a href="<?=BASE_URL.'?action=fix'?>" class="btn btn-outline-primary">chỉnh sửa</a>
+
     <div class="btn-group" role="group">
       <a href="<?= BASE_URL.'?action=login'?> "class="btn btn-outline-primary">đăng ký</a>
       <a href="<?= BASE_URL.'?action=register'?>" class="btn btn-outline-primary">đăng nhập</a>

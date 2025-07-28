@@ -1,3 +1,4 @@
+<h1>thêm sản phẩm</h1>
 <form action="<?= BASE_URL.'?action=add'?>" method="post" enctype="multipart/form-data">
     <p>
         <label for="">name</label>

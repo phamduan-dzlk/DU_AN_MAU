@@ -60,7 +60,7 @@ class ProductModel
     }
     public function delete($id)
     {
-        $sql="DELETE FROM products where id=:id";
+        $sql="DELETE FROM productsss where id=:id";
         $stmt=$this->conn->prepare($sql);
         $stmt->execute([':id'=>$id]);
         return $stmt->rowCount();

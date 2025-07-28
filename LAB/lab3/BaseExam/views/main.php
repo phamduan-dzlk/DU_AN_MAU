@@ -20,13 +20,22 @@
 
 <body>
     <nav class="navbar navbar-expand-xxl bg-light justify-content-center">
-        <ul class="navbar-nav">
-            <li class="nav-item">
+        <ul class="d-flex list-unstyled">
+            <li class="me-3">
                 <a class="nav-link text-uppercase" href="<?= BASE_URL ?>"><b>home</b></a>
             </li>
+            <li class="me-3">
+                <a class="nav-link text-uppercase" href="<?= BASE_URL ?>"><b>liên hệ</b></a>
+            </li>
+            <li class="me-3">
+                <a class="nav-link text-uppercase" href="<?= BASE_URL ?>"><canvas id="mycanvas">hihi</canvas></a>
+            </li>
         </ul>
+        <div class="btn-group" role="group">
+            <a href="<?=BASE_URL.'?action=regester'?>" class="btn btn-outline-primary">đăng nhập</a>
+            <a href="<?=BASE_URL.'?action=login'?>" class="btn btn-outline-primary">đăng ký</a>
+        </div>
     </nav>
-
     <div class="container">
         <div class="row">
             <?php
@@ -36,7 +45,25 @@
             ?>
         </div>
     </div>
-
+    <footer>
+        <p>follow us</p>
+        
+    </footer>
 </body>
+<style>
+    footer{
+        background-color: black;
+        padding: 10px;
+        text-align: center;
+        margin-top: 50px;
+    }
+    footer p{
+        color: wheat;
+        
+    }
+    footer p:hover{
+        color: white;
 
+    }
+</style>
 </html>

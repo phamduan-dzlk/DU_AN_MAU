@@ -16,7 +16,6 @@ class ProductController
     {
         $category = $this->modelProduct->category();
         $title = "Trang chủ";
-        $thoiTiet = "Hôm nay trời có vẻ là mưa";
 
         if(isset($_GET['category'])){
             $data_in = $this->modelProduct->Qcate($_GET['category']);
@@ -31,7 +30,6 @@ class ProductController
     {
         $data=$this->modelProduct->getAll();
         $title = "Trang chu";
-        $thoiTiet = "Hôm nay trời có vẻ là mưa";
         require_once PATH_VIEW.'trangchu.php';
     }
     public function delete()
@@ -126,11 +124,10 @@ class ProductController
             }
         } catch (\Throwable $th) {
             $_SESSION['status']=false;
-            $_SESSION['msg']=("");
+            $_SESSION['msg']= $th->getMessage();
         }
         header('location:'.BASE_URL_FIX);
     }
-
     public function edit_categoty(){
         if(isset($_GET['id'])){
             $data=$this->category->get($_GET['id']);
@@ -142,7 +139,8 @@ class ProductController
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $row=$this->category->update($_POST);
             if($row>0){
-                $mesage="da sua thanh cong";
+                $_SESSION['status']=true;
+                $_SESSION['msg']="da sua thanh cong";
             }
             header('location:'.BASE_URL_FIX);
             exit;
@@ -156,7 +154,8 @@ class ProductController
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $row=$this->category->add($_POST);
             if($row>0){
-                $mesage="da theem thanh cong";
+                $_SESSION['status']=true;
+                $_SESSION['msg']="da them thanh cong";
             }
             header('location:'.BASE_URL_FIX);
             exit;
@@ -170,8 +169,6 @@ class ProductController
             $category=$this->modelProduct->category();
             if(isset($_GET['category'])){
                 $data_in=$this->modelProduct->Qcate($_GET['category']);
-                $title = "Trang chu";
-                $thoiTiet = "Hôm nay trời có vẻ là mưa";
                 require_once PATH_VIEW.'trangchu.php';
             }
 
