@@ -70,7 +70,7 @@ class ProductController
         require_once PATH_VIEW.'create.php';
     }
     function add(){
-        if($_SERVER['REQUEST_METHOD']){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $data=$_POST + $_FILES;
             echo"<pre>";
             print_r($data);
@@ -93,7 +93,7 @@ class ProductController
         
     }
     function update(){
-        if($_SERVER['REQUEST_METHOD']){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $data=$_POST + $_FILES;
             $product=$this->modelProduct->get($_POST['id']);
             if($data['thumbnail']['size']>0){
@@ -139,7 +139,7 @@ class ProductController
          
     }
     public function update_categoty(){
-        if($_SERVER['REQUEST_METHOD']){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $row=$this->category->update($_POST);
             if($row>0){
                 $mesage="da sua thanh cong";
@@ -153,7 +153,7 @@ class ProductController
         require_once PATH_VIEW.'fix_create.php';        
     }
     public function add_category(){
-        if($_SERVER['REQUEST_METHOD']){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $row=$this->category->add($_POST);
             if($row>0){
                 $mesage="da theem thanh cong";
@@ -166,7 +166,7 @@ class ProductController
         require_once PATH_VIEW.'login.php';
     }
     public function add_user(){
-        if($_SERVER['REQUEST_METHOD']){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $category=$this->modelProduct->category();
             if(isset($_GET['category'])){
                 $data_in=$this->modelProduct->Qcate($_GET['category']);
@@ -179,7 +179,7 @@ class ProductController
             $this->user->add($_POST);
 
             $_SESSION['login']=true;
-            $_SESSION['user']=$_POST['username'];
+            $_SESSION['username']=$_POST['username'];
             $_SESSION['status']=true;
             $_SESSION['msg']=("bạn đã đăng ký thành công!");   
 
@@ -192,18 +192,19 @@ class ProductController
         require_once PATH_VIEW.'register.php'; 
     }
     public function check_user(){
-        if($_SERVER['REQUEST_METHOD']){
+        if($_SERVER['REQUEST_METHOD']== 'POST'){
             $data=$this->user->check($_POST['username'],$_POST['password']);
-            if(!isset($data)){
+            if(empty($data)){
+                $_SESSION['login']=false;
                 $_SESSION['status']=false;
                 $_SESSION['msg']=("bạn đã đăng nhập thất bại!");
-                header("Location: " . BASE_URL);
-                exit;
+                require_once PATH_VIEW.'register.php'; 
             }else{
                 $_SESSION['login']=true;
-                $_SESSION['user']=$data['username'];
+                $_SESSION['username']=$data['username'];
                 $_SESSION['status']=true;
-                $_SESSION['msg']=("bạn đã đăng nhập thành công!");
+                $_SESSION['msg']=("bạn đã đăng nhập thành duẩn công!");
+                
                 header("Location: " . BASE_URL);
                 exit;               
             }
