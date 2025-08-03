@@ -5,15 +5,19 @@ class ProductController
     public $user;
     public $modelProduct;
     public $category;
+    public $comment;
 
     public function __construct()
     {
         $this->modelProduct = new ProductModel();
         $this->category = new Category();
         $this->user = new User();
+        $this->comment = new Comment();
     }
     public function Home()
     {
+        //tại sao không in ra bảng category mà phải tham chiếu
+        //tôi chỉ muốn hiện những cái mà trong danh sách có liệt kê đến
         $category = $this->modelProduct->category();
         $title = "Trang chủ";
 
@@ -22,16 +26,10 @@ class ProductController
         } else {
             $data = $this->modelProduct->getAll();
         }
-
         require_once PATH_VIEW.'trangchu.php';
     }
 
-    public function category()
-    {
-        $data=$this->modelProduct->getAll();
-        $title = "Trang chu";
-        require_once PATH_VIEW.'trangchu.php';
-    }
+
     public function delete()
     {
         try {
@@ -59,6 +57,21 @@ class ProductController
     function detail(){
         if(isset($_GET['id'])){
             $data=$this->modelProduct->get($_GET['id']);
+            if(!isset($data_coment)){
+                $datacomment=[];
+            }
+            $comment=$this->comment->get_comment($_GET['id']);
+            if(isset($comment)){
+                foreach($comment as $v){
+                    $user = $this->user->get($v['commenter_id']);
+                    $data_coment[]=[
+                        'username'=>$user['username'],
+                        'content'=>$v['content'],
+                        'comment_type'=>$v['comment_type'],
+                        'comment_date'=>$v['comment_date'],
+                    ];
+                }
+            }
             require_once PATH_VIEW.'detail.php';            
         }
 
@@ -133,7 +146,6 @@ class ProductController
             $data=$this->category->get($_GET['id']);
             require_once PATH_VIEW.'fix_edit.php';  
         }
-         
     }
     public function update_categoty(){
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -177,6 +189,7 @@ class ProductController
 
             $_SESSION['login']=true;
             $_SESSION['username']=$_POST['username'];
+            $_SESSION['id_user']=$data['id'];
             $_SESSION['status']=true;
             $_SESSION['msg']=("bạn đã đăng ký thành công!");   
 
@@ -199,6 +212,7 @@ class ProductController
             }else{
                 $_SESSION['login']=true;
                 $_SESSION['username']=$data['username'];
+                $_SESSION['id_user']=$data['id'];
                 $_SESSION['status']=true;
                 $_SESSION['msg']=("bạn đã đăng nhập thành duẩn công!");
                 
@@ -212,5 +226,4 @@ class ProductController
     header("Location: " . BASE_URL);
     exit;
     }
-
 }

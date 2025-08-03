@@ -19,5 +19,12 @@ class User{
         $stmt=$this->conn->prepare($sql);
         $stmt->execute($data);
     }
+    function get($id){
+        $sql = "SELECT * FROM user WHERE id=:id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':id'=>$id]);
+        $user = $stmt->fetch();
+        return $user;
+    }
 }
 ?>

@@ -41,15 +41,24 @@
     <!-- danh muc -->
     <?php
     $category_url=$_GET['category'] ?? '0'; 
+    //tạo ra cái mặc định
     ?>
     <div class="mb-4">
       <div class="btn-group" role="group">
         <a href="<?=BASE_URL.'?action=category'?>"  class="btn btn-outline-primary <?=$category_url==0 ? 'active':''?>">tất cả</a>
+        <!-- tất cả không có trong database nên phải in ra-->
         <?php foreach($category as $v){?>
           <a href="<?=BASE_URL.'?action=category&category='.$v['category_id']?>"  class="btn btn-outline-primary <?=$category_url==$v['category_id'] ? 'active':''?>"><?= $v['categoryName']?></a>
+          <!-- lấy mảng đa chiều đã lưu để in ra category -->
         <?php }?>
       </div>
     </div>
+    <form action="" class="d-flex my-3" method="get">
+      <input type="hidden" name="action" value="search" id="">
+      <input type="text" class="form-control me-2" id="" name="search">
+      <button type="submit" class="btn btn-outline-primary">tìm kiếm</button>
+    </form>
+
     <table class="table">
       <tr>
         <th>dinh danh</th>
@@ -76,7 +85,6 @@
           </td>
         </tr>        
       <?php }?>
-
     </table>
   </div>
 </body>
